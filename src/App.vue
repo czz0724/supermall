@@ -20,5 +20,8 @@ export default {
 </script>
 
 <style>
-@import"assets/css/base.css"
+@import"assets/css/base.css";
+#app{
+  overflow: hidden;
+}
 </style>

@@ -4,8 +4,10 @@
     <navbar class="navbar"> </navbar>
     <!-- 轮播图 -->
     <home-swiper :banner="banners"></home-swiper>
-
+    <!-- 每日推送 -->
     <recompend-view :recompendview="recommends"> </recompend-view>
+    <!-- 推荐 -->
+    <recomend-view></recomend-view>
   </div>
 </template>
 
@@ -14,13 +16,16 @@ import navbar from "components/common/navbar/Navbar";
 import { getHomeMultidata } from "../../network/home";
 import HomeSwiper from "./childcomps/HomeSwiper"
 import RecompendView from "./childcomps/RecompendView"
+import RecomendView from './childcomps/RecomendView';
+
 
 export default {
   name: "home",
   components: {
     navbar,
    HomeSwiper,
-   RecompendView
+   RecompendView,
+    RecomendView
   },
 
   data() {
@@ -45,5 +50,10 @@ export default {
 <style>
 .navbar {
   background-color: var(--color-tint);
+ 
+}
+#home{
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 </style>

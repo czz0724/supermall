@@ -18,7 +18,8 @@ export default {
   /* 需要有内容才能撑起 */
   line-height: 44rem;  
   height: 44rem;
-  
+  position:fixed;
+  z-index: 9;
   box-shadow: 0 2rem 1rem rgba(32, 32, 32, 0.36);
   left: 0;
   top: 0;
@@ -27,7 +28,7 @@ export default {
   color: aliceblue;
 }
 .left,.right{
-  width: 60rem;
+  width: 60rem; 
   text-align: center;
 }
 .center{

@@ -213,6 +213,7 @@
   #hy-swiper {
     overflow: hidden;
     position: relative;
+    margin-top: 44rem;
   }
 
   .swiper {
