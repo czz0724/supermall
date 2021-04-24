@@ -21,7 +21,7 @@ export default {
       //type 指定类型为String
       type:String,
       //default 默认值
-      default:"red"
+      default:"red" 
     }
   },
   data(){
