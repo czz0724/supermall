@@ -1,9 +1,8 @@
 <template>
   <div id="app" style="font-size: 0.31vw;">
-    <!-- router 路由 -->
+    <!-- router 路由 --> 
   <router-view />
     <main-Tabbar />
-   
   </div>
 </template>
 
@@ -15,13 +14,14 @@ export default {
   router,
   components: {
     MainTabbar
-  }
+  },
 }
 </script>
 
 <style>
 @import"assets/css/base.css";
 #app{
-  overflow: hidden;
+  /* overflow: hidden; */
 }
+
 </style>
