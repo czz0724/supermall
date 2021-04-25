@@ -25,6 +25,8 @@ export default {
   right: 0;
   /* box-shadow 阴影 */
   box-shadow: 0rem -2rem 1rem rgba(0, 0, 0, 0.089);
+
+  z-index: 990;
 }
 
 </style>

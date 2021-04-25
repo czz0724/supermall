@@ -14,6 +14,6 @@ export default {
 
 <style>
 .recommend img{
-  width: 101%;
+  width: 100%;
 }
 </style>

@@ -23,7 +23,7 @@ export default {
     return {};
   },
   created() {
-    console.log(this.a);
+    // console.log(this.a);
   },
 };
 </script>

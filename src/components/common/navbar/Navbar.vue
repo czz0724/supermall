@@ -7,7 +7,7 @@
 </template>
 
 <script>
-export default {
+export default { 
 
 }
 </script>
@@ -19,7 +19,7 @@ export default {
   line-height: 44rem;  
   height: 44rem;
   position:fixed;
-  z-index: 9;
+  z-index: 10;
   box-shadow: 0 2rem 1rem rgba(32, 32, 32, 0.36);
   left: 0;
   top: 0;
@@ -32,7 +32,7 @@ export default {
   text-align: center;
 }
 .center{
-  flex: 1;
+  flex: 1; 
   text-align: center;
 } 
 </style>  
