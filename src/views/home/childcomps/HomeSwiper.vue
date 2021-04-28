@@ -1,12 +1,12 @@
 <template>
-     <!-- 轮播图 -->
-    <swiper>
-      <swiper-item v-for="(item, index) in banner.list" :key="index">
-        <a :href="item.link">
-          <img :src="item.image923" alt="" />
-        </a>
-      </swiper-item>
-    </swiper>
+  <!-- 轮播图 -->
+  <swiper>
+    <swiper-item v-for="(item, index) in banner.list" :key="index">
+      <a :href="item.link">
+        <img :src="item.image923" alt="" @load="HomeSwiperload" />
+      </a>
+    </swiper-item>
+  </swiper>
 </template>
 
 <script>
@@ -20,17 +20,31 @@ export default {
   props:{
     banner:{
       defalut(){
-        return []
+        return [
+        ]
       }
     }
   },
   data() {
     return {
+       isload:false
     };
   },
+  mounted(){
+    
+      
+      
+      
+     
+  },
+  methods:{
+    HomeSwiperload(){
+      this.$emit('HomeSwiperload')
+    }
+    
+  }
 }
 </script>
 
 <style>
-
 </style>

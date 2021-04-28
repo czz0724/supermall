@@ -1,6 +1,6 @@
 <template>
   <div class="Goodslistitem">
-      <img :src="goodsitem.show.img" alt="">
+      <img :src="goodsitem.show.img" alt="" @load="isimgload">
       <div class="box2">
         <p>{{goodsitem.title}}</p>
         <span class="price">{{goodsitem.price}}</span>
@@ -18,6 +18,12 @@ export default {
       defalut(){
         return {} 
       }
+    }
+  },
+  methods:{
+    isimgload(){
+      //事件总线
+      this.$bus.$emit("isimgload")
     }
   }
 }
@@ -38,7 +44,7 @@ export default {
 
 .box2{
 
-   font-size: 12px;
+   font-size: 12rem;
     position: absolute;
     bottom: 5rem;
     left: 0;
@@ -51,11 +57,11 @@ export default {
   overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 3px;
+    margin-bottom: 3rem;
 }
 .price{
 color: var(--color-high-text);
-    margin-right: 20px; 
+    margin-right: 20rem; 
 }
 .cfav{
 position: relative;
@@ -63,10 +69,10 @@ position: relative;
 .cfav::before {
     content: '';
     position: absolute;
-    left: -15px;
-    top: -1px;
-    width: 14px;
-    height: 14px;
-    background: url("../../../assets/img/common/collect.svg") 0 0/14px 14px;
+    left: -15rem;
+    top: -1rem;
+    width: 14rem;
+    height: 14rem;
+    background: url("../../../assets/img/common/collect.svg") 0 0/14rem 14rem;
   }
 </style>

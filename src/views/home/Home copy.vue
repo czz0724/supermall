@@ -2,30 +2,11 @@
   <div id="home">
     <!-- navbar 顶栏 -->
     <navbar class="navbar"> </navbar>
-    <tabcontrol 
-        :titles="['流行', '新款', '精选']" 
-        :class="{tabcontrol_actve:1}" 
-        @tabclick="tabclick" 
-        ref="tabcontrol1" 
-        v-show="this.isclasstab"
-        ></tabcontrol>
-    <scroll 
-        class="content" 
-        ref="scroll" 
-        :probeType="0"
-        @scroll="contentscroll" 
-        :pullUpLoad="true" 
-        @pullingUp="loadMore">     
-
-      <home-swiper :banner="banners" @HomeSwiperload="HomeSwiperload"></home-swiper>                                             <!-- 轮播图 -->
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentscroll">               
+      <home-swiper :banner="banners"></home-swiper>                                             <!-- 轮播图 -->
       <recompend-view :recompendview="recommends"> </recompend-view>                            <!-- 每日推送 -->
       <recomend-view></recomend-view>                                                           <!-- 推荐 --> 
-      <tabcontrol 
-        :titles="['流行', '新款', '精选']" 
-        @tabclick="tabclick" 
-        ref="tabcontrol2" 
-        
-        ></tabcontrol>                 <!-- tabcontrol -->
+      <tabcontrol :titles="['流行', '新款', '精选']" class="tabcontrol_actve" @tabclick="tabclick"></tabcontrol><!-- tabcontrol -->
       <goodslist :goods="showgoods"></goodslist>
     </scroll>
     <backtop @click.native="backclick" v-show="isbackshow"></backtop>
@@ -64,8 +45,6 @@ export default {
     showgoods() {
       return this.goods[this.goodsIndex].list;
     },
-    
-    
   },
   data() {
     return {
@@ -78,10 +57,6 @@ export default {
         sell: { page: 0, list: [] },
       },
       isbackshow:false,
-      tabOffsetTop:0,      
-      isclasstab:false,
-      saveY:0,
-      tabindex:0
     };
   },
   //生命周期
@@ -95,69 +70,33 @@ export default {
     this.getHomegoods("new");
 
     this.getHomegoods("sell");
+  },
 
-    
-  },
-  //路由活跃时
-  activated(){
-     this.$refs.scroll.scrollTo(0,this.saveY,0)
-  },
-  //路由离开时
-  deactivated(){
-    this.saveY= this.$refs.scroll.scroll.y
-    console.log(this.saveY);
-  },
-  //el挂载后
-  mounted(){
-    const refresh =this.debounce(this.$refs.scroll.refresh,100)
-
-    //重置scroll的计算高度
-    this.$bus.$on("isimgload",()=>{
-      refresh()
-    })
-
-  },
   methods: {
     //事件监听
     backclick(){
       this.$refs.scroll.scrollTo(0,0)
+      console.log(this.$refs.scroll.y);
     },
-    //下拉加载
-    loadMore(){
-      if(this.tabindex==0){
-        this.getHomegoods("pop");
-      }
-      if(this.tabindex==1){
-        this.getHomegoods("new");
-      }
-      if(this.tabindex==2){
-        this.getHomegoods("sell");
-      }
-    },
-    //判断渲染
+    
+    //
     tabclick(index) {
-      this.tabindex=index
-      if(index==0){
-        this.goodsIndex = "pop";
+      switch (index) {
+        case 0:
+          this.goodsIndex = "pop";
+          break;
+        case 1:
+          this.goodsIndex = "new";
+          break;
+        case 2:
+          this.goodsIndex = "sell";
+
+          break;
       }
-      if(index==1){
-        this.goodsIndex = "new";
-      }
-      if(index==2){
-        this.goodsIndex = "sell";
-      }
-      this.$refs.tabcontrol1.isclass = index
-      this.$refs.tabcontrol2.isclass = index
     },
     //监听按钮的显示 （返回顶部）
     contentscroll(position){
       console.log(position);
-      if(position.y<this.tabOffsetTop*-1){
-        this.isclasstab=true
-      }
-      else{
-        this.isclasstab=false
-      }
       if(position.y<-600){
         this.isbackshow=true
       }
@@ -165,28 +104,7 @@ export default {
         this.isbackshow=false
       }
     },
-    //监听轮播图的加载
-    HomeSwiperload(){
-      this.tabOffsetTop = this.$refs.tabcontrol2.$el.offsetTop
-      console.log(this.tabOffsetTop);
-    },
-    //防抖/节流
-    debounce(func,delay){
-      let timer = null
-      return function (){
-        if(timer)clearTimeout(timer)
-        timer = setTimeout(() => {
-          func()
-        }, delay);
-      }
-    },
-    //浮动
-    srtletab(){
-      if(this.xy.y=-tabOffsetTop){
-        console.log();
-        }
-      if(this.xy.y>tabOffsetTop){return {top:0}}
-    },
+
 
     //数据请求
     getHomeMultidata() {
@@ -202,14 +120,11 @@ export default {
       getHomegoods(type, page).then((res) => {
         this.goods[type].list.push(...res.data.data.list);
         this.goods[type].page += 1; //goods的页码+1
-        
-        this.$refs.scroll&&this.$refs.scroll.finishPullUp()
+        // console.log(this.goods[type].list);
+        // console.log(res.data.data.list);
       });
     },
   },
-  updated(){
-    // this.$refs.scroll.scroll.refresh()
-  }
 };
 </script>
 
@@ -221,16 +136,14 @@ export default {
   overflow: hidden;
 }
 
-.tabcontrol_actve {
-  position: fixed;
+/* .tabcontrol_actve {
+  position: sticky;
   top: 44rem;
-  left: 0;
-  right: 0;
   z-index: 99;
-}
+} */
 .content {
-  height: calc(100vh - 49rem);
+  margin-top: 44rem;
+  height: 547rem;
   overflow: hidden;
-  margin-top :44rem;
 }
 </style>

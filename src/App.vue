@@ -1,7 +1,9 @@
 <template>
   <div id="app" style="font-size: 0.31vw;">
     <!-- router 路由 --> 
-  <router-view />
+  <keep-alive>
+    <router-view />
+  </keep-alive>
     <main-Tabbar />
   </div>
 </template>
@@ -21,7 +23,7 @@ export default {
 <style>
 @import"assets/css/base.css";
 #app{
-  /* overflow: hidden; */
+  min-width: 320rem;
 }
 
 </style>

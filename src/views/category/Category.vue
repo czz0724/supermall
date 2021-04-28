@@ -1,32 +1,47 @@
 <template>
-  <div class="aa" ref="aaaa">
-    <div class="bb">
-      <li v-for="item,index in 100" :key="index">{{item+'000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'}}</li>
-    </div>
+  <div class="category">
+    <scroll class="end">
+        <div class="aa">
+          <li v-for="(item, index) in 20" :key="index">
+            {{
+              item +
+              "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            }}
+          </li>
+        </div>
+       
+    </scroll>
   </div>
 </template>
 
 <script>
-import BS from "better-scroll"
+//只装这个
+import Scroll from "../../components/common/scroll/Scroll";
+import home from "../home/Home"
 export default {
-  data(){
+  data() {
     return {
-      BStter:null
-    }
+      BStter: null,
+    };
   },
-  mounted(){
-    this.BStter = new BS(this.$refs.aaaa),{
-
-    }
-  }
-}
+  mounted() {},
+  components: {
+    Scroll,
+    home,
+  },
+};
 </script>
 
-<style>
-.aa{
-  height: 200rem;
-  background-color: red;
-  
-  font-size: 16rem;
+<style >
+.aa {
+  font-size: 30rem;
+  background-color: aqua;
+}
+.end{
+  height: 500rem;
+
+}
+.category{
+  overflow: hidden;
 }
 </style>
