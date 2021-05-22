@@ -1,7 +1,7 @@
 <template>
   <div id="app" style="font-size: 0.31vw;">
     <!-- router 路由 --> 
-  <keep-alive>
+  <keep-alive exclude="Detail">
     <router-view />
   </keep-alive>
     <main-Tabbar />
@@ -10,10 +10,8 @@
 
 <script>
 import MainTabbar from"./components/content/maintabbar/MainTabbar"
-import router from "./router"
 export default {
   name: 'App',
-  router,
   components: {
     MainTabbar
   },

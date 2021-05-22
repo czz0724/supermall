@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div class="left"><slot name="left"></slot></div>
-    <div class="center"><slot name="center"></slot>购物车</div>
+    <div class="center"><slot name="center"></slot></div>
     <div class="right"><slot name="right"></slot></div>
   </div>
 </template>
@@ -16,7 +16,6 @@ export default {
 .navbar{
   display: flex;
   /* 需要有内容才能撑起 */
-  line-height: 44rem;  
   height: 44rem;
   position:fixed;
   z-index: 10;
@@ -34,5 +33,10 @@ export default {
 .center{
   flex: 1; 
   text-align: center;
+  margin: auto;
 } 
+.center div{
+  margin: auto;
+}
+
 </style>  

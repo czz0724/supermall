@@ -28,7 +28,7 @@ export default {
   mounted() {
     this.scroll = new BStter(this.$refs.contant, {
       probeType: this.probeType,
-      mouseWheel: true,
+      mouseWheel: false,
       click: true,
       pullUpLoad:this.pullUpLoad
       
@@ -39,17 +39,20 @@ export default {
       })
 
       this.scroll.on('pullingUp',()=>{
-        console.log("ok");
+        console.log("已到底部");
         this.$emit('pullingUp')
       })
   },
   methods:{
+    //跳到指定区域
     scrollTo(x,y,time=300){
-      this.scroll.scrollTo(x,y,time=300)
+      this.scroll.scrollTo(x,y,time)
     },
+    //刷新上滑触发事件
     finishPullUp(){
       this.scroll.finishPullUp();
     },
+    //刷新可滑动距离
     refresh(){
      this.scroll.refresh();
     }

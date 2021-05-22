@@ -1,6 +1,6 @@
 <template>
-  <div class="Goodslistitem">
-      <img :src="goodsitem.show.img" alt="" @load="isimgload">
+  <div class="Goodslistitem" @click="itemclick">
+      <img v-lazy="recommends" alt="aa" @load="isimgload">
       <div class="box2">
         <p>{{goodsitem.title}}</p>
         <span class="price">{{goodsitem.price}}</span>
@@ -14,16 +14,25 @@ export default {
   name:"Goodslistitem",
   props:{
     goodsitem:{
-      type:Object,
+      type:"",
       defalut(){
         return {} 
       }
     }
   },
+  computed:{
+    recommends(){
+      return this.goodsitem.img||this.goodsitem.image||this.goodsitem.show.img
+    }
+  },
   methods:{
     isimgload(){
       //事件总线
-      this.$bus.$emit("isimgload")
+        this.$bus.$emit("isimgload")
+    },
+    itemclick(){
+      this.$router.push('/detail/'+this.goodsitem.iid)
+      // console.log(this.goodsitem.iid);
     }
   }
 }

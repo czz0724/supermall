@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <!-- navbar 顶栏 -->
-    <navbar class="navbar"> </navbar>
+    <navbar class="navbar"><div slot="center">购物节</div></navbar>
     <tabcontrol 
         :titles="['流行', '新款', '精选']" 
         :class="{tabcontrol_actve:1}" 
@@ -45,9 +45,10 @@ import RecompendView from "./childcomps/RecompendView";
 import RecomendView from "./childcomps/RecomendView";
 //外部导入
 import { getHomeMultidata, getHomegoods } from "../../network/home";
-
+import {backTopMixin} from "@/common/mixin"
 export default {
   name: "home",
+  mixins:[backTopMixin],
   components: {
     navbar,
     Scroll,
@@ -64,8 +65,6 @@ export default {
     showgoods() {
       return this.goods[this.goodsIndex].list;
     },
-    
-    
   },
   data() {
     return {
@@ -77,8 +76,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
-      isbackshow:false,
-      tabOffsetTop:0,      
+          
       isclasstab:false,
       saveY:0,
       tabindex:0
@@ -100,27 +98,40 @@ export default {
   },
   //路由活跃时
   activated(){
+    //活跃时跳转离开时的位置
      this.$refs.scroll.scrollTo(0,this.saveY,0)
+     this.$refs.scroll.refresh()
   },
   //路由离开时
   deactivated(){
+    //保留离开时的滑动距离
     this.saveY= this.$refs.scroll.scroll.y
-    console.log(this.saveY);
+    // console.log(this.saveY);
   },
   //el挂载后
   mounted(){
     const refresh =this.debounce(this.$refs.scroll.refresh,100)
 
-    //重置scroll的计算高度
+    //重置scroll的计算高度 事件总线
     this.$bus.$on("isimgload",()=>{
       refresh()
     })
 
   },
   methods: {
-    //事件监听
-    backclick(){
-      this.$refs.scroll.scrollTo(0,0)
+    //监听navtop是否悬浮
+    _isclasstab(position){
+      if(position<this.tabOffsetTop*-1){
+        this.isclasstab=true
+      }
+      else{
+        this.isclasstab=false
+      }
+    },
+    //监听按钮的显示 （返回顶部）
+    contentscroll(position){
+      this._isclasstab(position.y)
+      this.is_isbackshow(position.y)
     },
     //下拉加载
     loadMore(){
@@ -149,36 +160,11 @@ export default {
       this.$refs.tabcontrol1.isclass = index
       this.$refs.tabcontrol2.isclass = index
     },
-    //监听按钮的显示 （返回顶部）
-    contentscroll(position){
-      console.log(position);
-      if(position.y<this.tabOffsetTop*-1){
-        this.isclasstab=true
-      }
-      else{
-        this.isclasstab=false
-      }
-      if(position.y<-600){
-        this.isbackshow=true
-      }
-      else{
-        this.isbackshow=false
-      }
-    },
+    
     //监听轮播图的加载
     HomeSwiperload(){
       this.tabOffsetTop = this.$refs.tabcontrol2.$el.offsetTop
-      console.log(this.tabOffsetTop);
-    },
-    //防抖/节流
-    debounce(func,delay){
-      let timer = null
-      return function (){
-        if(timer)clearTimeout(timer)
-        timer = setTimeout(() => {
-          func()
-        }, delay);
-      }
+      // console.log(this.tabOffsetTop);
     },
     //浮动
     srtletab(){

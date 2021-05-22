@@ -49,8 +49,8 @@ export default {
 .tabcontrolspan{
   padding: 3rem;
   color:rgba(255, 120, 120, 0.877);
- box-shadow: 0px 2.5rem 0rem rgba(255, 120, 120, 0.877);
- 
+ /* box-shadow: 0px 2.5rem 0rem rgba(255, 120, 120, 0.877); */
+  border-bottom: 2.5px solid rgb(228, 3, 40);
 }
 
 </style>
