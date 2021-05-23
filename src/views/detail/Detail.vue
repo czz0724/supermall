@@ -5,7 +5,7 @@
       ref="scroll"
       @scroll="contentscroll"
       :pullUpLoad="true"
-      :probeType="0" >
+      :probeType="3" >
       <detail-swiper :swiper="swipers"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shopInfo"></detail-shop-info>
@@ -50,7 +50,7 @@ export default {
       goodsinfo:{},
       rate:{},
       recommends:[],
-      scrollTop:[-44],
+      scrollTop:[0],
 
     };
   },
@@ -78,7 +78,7 @@ export default {
     },
     titleclick(index){
       if(this.scrollTop.length>=3){
-        this.$refs.scroll.scrollTo(0,this.scrollTop[index],200)
+        this.$refs.scroll.scrollTo(0,this.scrollTop[index]-5,200)
       }
     },
     //将商品 数据 传入vuex 
@@ -100,17 +100,22 @@ export default {
       
     },
     contentscroll(position){
-      for (let i = 0; i < this.scrollTop.length; i++) {
-        if (position.y<=this.scrollTop[i]&&position.y>=this.scrollTop[i+1]||position.y<=this.scrollTop[this.scrollTop.length-1]) {
-          this.$refs.navbat.indexs = i
-        }
+      if (position.y<=this.scrollTop[0]&&position.y>=this.scrollTop[1]) {
+        this.$refs.navbat.indexs = 0
+      } else if (position.y<=this.scrollTop[1]&&position.y>=this.scrollTop[2]) {
+        this.$refs.navbat.indexs = 1
+      } else if (position.y<=this.scrollTop[2]&&position.y>=this.scrollTop[3]) {
+        this.$refs.navbat.indexs = 2
+      } else if (position.y<=this.scrollTop[3]) {
+        this.$refs.navbat.indexs = 3
       }
+      
       this.is_isbackshow(position.y)
     },
    //获取商品、参数、评论、推荐的offsetTop
    _scrollTop(){
-    this.scrollTop.push(-this.$refs.goofsinfo.$el.offsetTop-44)
-    this.scrollTop.push(-this.$refs.rates.$el.offsetTop-44)
+    this.scrollTop.push(-this.$refs.goofsinfo.$el.offsetTop)
+    this.scrollTop.push(-this.$refs.rates.$el.offsetTop)
     this.scrollTop.push(-this.$refs.goodslist.$el.offsetTop)
    }
     
@@ -161,7 +166,7 @@ export default {
     
     this.$bus.$on('isimgload',()=>{
       this.$refs.scroll&&refresh()
-      this.$refs.scroll&&this.$refs.rates&&scrollTop()
+      Object.keys(this.goodsinfo)!=0&&this.$refs.scroll&&this.$refs.rates&&scrollTop()
     })
   }
 };
@@ -175,14 +180,13 @@ export default {
 }
 
 .detail-scroll {
-  position: absolute;
-  height: calc(100vh - 39px - 53px);
+  position: relative;
+  height: calc(100vh);
   overflow: hidden;
-  top: 44rem;
+  top: 88px;
 }
 
 .detailnavbat{
-  position: relative;
-  top: 40%;
+  position: absolute;
 }
 </style>
