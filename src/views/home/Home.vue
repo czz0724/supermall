@@ -82,7 +82,7 @@ export default {
       tabindex:0
     };
   },
-  //生命周期
+
   created() {
     //1.请求多个数据
     this.getHomeMultidata();
@@ -193,9 +193,7 @@ export default {
       });
     },
   },
-  updated(){
-    // this.$refs.scroll.scroll.refresh()
-  }
+  
 };
 </script>
 

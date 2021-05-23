@@ -41,7 +41,6 @@ export default {
 
 <style>
   .detailswiper{
-    margin: 44rem;
     height:300rem;
     overflow: hidden;
   }

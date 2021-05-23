@@ -40,6 +40,7 @@ export default {
   },
   data(){
     return{
+      saveY:0,
     }
   },
     
@@ -81,11 +82,15 @@ export default {
   },
   watch:{
     cateitem(){
-       this.refresh()
+      this.refresh()
     }
   },
   activated(){
     this.$refs.cataitemScroll.refresh()
+    this.$refs.cataitemScroll.scrollTo(0,this.saveY,0)
+  },
+  deactivated(){
+    this.saveY = this.$refs.cataitemScroll.scroll.y
   }
 };
 </script>

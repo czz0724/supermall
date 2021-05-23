@@ -56,6 +56,6 @@ export default {
   background-color: darkorange;
 }
 .lefts {
-  margin-top: 10PX;
+  margin-top: 20px;
 }
 </style>
